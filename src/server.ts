@@ -5,6 +5,7 @@ import { schema } from './schema/schema'
 import { ApolloServer, gql } from 'apollo-server-express';
 import {HOTEL_RESOLVER} from "./resolvers/hotel.resolver";
 import { Room } from './model/room'
+import {HotelAPI} from "./datasource/hotel-ds";
 
 const app = express();
 app.use(cors());
@@ -34,6 +35,11 @@ const resolvers = _.merge(
 const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
+    dataSources: () => {
+        return {
+            hotelAPI: new HotelAPI(),
+        };
+    }
 });
 server.applyMiddleware({ app, path: '/graphql' });
 app.listen({ port: 8000 }, () => {

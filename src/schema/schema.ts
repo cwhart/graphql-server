@@ -3,7 +3,7 @@ import { gql } from 'apollo-server-express';
 export const schema = gql`
     type Query {
         rooms: [Room]
-        room(id: ID!): Room
+        room(roomNumber: Int!): Room
     }
     type Room {
         id: ID!
